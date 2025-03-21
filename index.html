@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator de Albume Foto</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1> Album Foto</h1>
+        <input type="file" id="fileInput" multiple accept="image/*">
+        <button id="reloadAlbum">Reîncarcă Albumul</button>
+    </header>
+    <main>
+        <div id="gallery" class="gallery"></div>
+    </main>
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" src="">
+    </div>
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gallery = document.getElementById("gallery");
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightbox-img");
+            const closeBtn = document.querySelector(".close");
+            const reloadBtn = document.getElementById("reloadAlbum");
+            
+            const loadImages = () => {
+                gallery.innerHTML = "";
+                const images = ["images/photo1.jpg.JPG", "images/photo2.jpg.JPG", "images/photo3.jpg.JPG", "images/photo4.jpg.JPG"];
+                
+                images.forEach(src => {
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.alt = "Fotografie";
+                    img.addEventListener("click", () => {
+                        lightbox.style.display = "flex";
+                        lightboxImg.src = img.src;
+                    });
+                    gallery.appendChild(img);
+                });
+            };
+            
+            loadImages();
+            
+            reloadBtn.addEventListener("click", loadImages);
+            
+            closeBtn.addEventListener("click", () => {
+                lightbox.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>
